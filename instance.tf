@@ -1,5 +1,5 @@
 resource "aws_security_group" "vpc-web" {
-  name        = "vpc-web-sg"
+  name        = "vpc-web-sg-1"
   # vpc_id      = aws_vpc.vpc.id
   description = "Web Traffic"
   ingress {
