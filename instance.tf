@@ -1,24 +1,33 @@
-resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic and all outbound traffic"
-  
-  tags = {
-    Name = "allow_tls"
+resource "aws_security_group" "vpc-web" {
+  name        = "vpc-web-sg"
+  # vpc_id      = aws_vpc.vpc.id
+  description = "Web Traffic"
+  ingress {
+    description = "Allow Port 80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  security_group_id = aws_security_group.allow_tls.id
-  cidr_ipv4         = ["0.0.0.0/0"]
-  from_port         = 443
-  ip_protocol       = "tcp"
-  to_port           = 443
-}
-}
-resource "aws_instance" "web1" {
-  ami           = "ami-0583d8c7a9c35822c"
+  ingress {
+    description = "Allow Port 443"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    description = "Allow all ip and ports outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  }
+
+resource "aws_instance" "web" {
+  ami           = "ami-0182f373e66f89c85"
   instance_type = "t2.micro"
-  security_group = [aws_security_group.allow_tls.id]
-  
-    tags = {
-    Name      = "TF Cloud Instance"
-  }
+  availability_zone = "us-east-1a"
+  vpc_security_group_ids = [aws_security_group.vpc-web.id]
 }
