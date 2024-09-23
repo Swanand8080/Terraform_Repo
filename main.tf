@@ -12,7 +12,7 @@ provider "aws" {
 }
 resource "aws_ebs_volume" "myvolume" {
   availability_zone = "us-east-1a"
-  size              = 40
+  size              = 60
 
   tags = {
     Name = "CreatedUsingTerraform"
