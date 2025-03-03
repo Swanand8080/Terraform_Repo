@@ -29,7 +29,7 @@ resource "aws_security_group" "vpc-web" {
   }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0182f373e66f89c85"
+  ami           = "ami-05b10e08d247fb927"
   instance_type = "t2.micro"
   availability_zone = "us-east-1a"
   vpc_security_group_ids = [aws_security_group.vpc-web.id]
