@@ -10,7 +10,7 @@ provider "aws" {
 
 resource "aws_instance" "example_primary" {
   provider      = aws.primary
-  ami           = "ami-0e86e20dae9224db8"  # Example AMI
+  ami           = "ami-0c15e602d3d6c6c4a"  # Example AMI
   instance_type = "t2.micro"
 }
 
